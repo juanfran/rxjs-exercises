@@ -1,5 +1,6 @@
 import './exercise-1';
 
+/* DON'T TOUCH */
 let sections = document.querySelectorAll('section');
 let sectionsNav = document.querySelector('.sections');
 let initialSection = localStorage.getItem('index') | 0;
@@ -93,7 +94,7 @@ document.addEventListener('keydown', (e) => {
       if (nextSection >= sections.length) {
         nextSection = 0;
       }
-      
+
       setActiveSection(nextSection);
     } else if (e.keyCode === 37) {
       let nextSection = currentSection - 1;

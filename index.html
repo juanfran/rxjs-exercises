@@ -41,15 +41,61 @@ Rx.Observable.fromEvent(button, 'click')
             <div class="slide">
                 <h1>Observable</h1>
                 <ul>
+                    <li>Observables vs Funciones, los observables pueden devolver múltiples values e incluso puedes devolverlos asincronamente.</li>
                     <li>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</li>
-                    <li>Un observable emite elementos al observador</li>
-                    <li></li>
                 </ul>
-                <pre><code class="language-js">var hi = 'hello';</code></pre>            
             </div>
             <div class="slide">
-                <p>prueba</p>
+                <pre><code class="language-js">var observable = Rx.Observable.create(function (observer) {
+  observer.next(1);
+  observer.next(2);
+  observer.next(3);
+  setTimeout(() => {
+    observer.next(4);
+    observer.complete();
+  }, 1000);
+});
+
+console.log('just before subscribe');
+observable.subscribe({
+  next: x => console.log('got value ' + x),
+  error: err => console.error('something wrong occurred: ' + err),
+  complete: () => console.log('done'),
+});
+console.log('just after subscribe');</code></pre>      
+            <pre><code class="language-bash">just before subscribe
+got value 1
+got value 2
+got value 3
+just after subscribe
+got value 4
+done</code></pre> 
             </div>
+            <div class="slide">
+                <pre><code class="language-js">var observable = Rx.Observable.create(function subscribe(observer) {
+  // Keep track of the interval resource
+  var intervalID = setInterval(() => {
+    observer.next('hi');
+  }, 1000);
+
+  // Provide a way of canceling and disposing the interval resource
+  return function unsubscribe() {
+    clearInterval(intervalID);
+  };
+});
+
+var subscription = observable.subscribe((text) => {
+    console.log(text);
+});
+
+subscription.unsubscribe();
+</code></pre>      
+            </div>   
+            <div class="slide">
+                <h2>Ejercicio 1</h2>
+                <p>Crear un observable capaz de cancelarse.</p> 
+                <p>Tiene que imprimir un número del 1 al 5 cada segundo y luego completarse.</li>
+            </div>         
         </section>
         <section>
             <div class="slide">
