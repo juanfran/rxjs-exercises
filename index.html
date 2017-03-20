@@ -6,8 +6,45 @@
     <body>
         <section>
             <div class="slide">
+                <h1>RXJS</h1>
+            </div>
+            <div class="slide">
+                <pre><code class="language-js">var count = 0;
+var rate = 1000;
+var lastClick = Date.now() - rate;
+var button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+  if (Date.now() - lastClick >= rate) {
+    console.log(`Clicked ${++count} times`);
+    lastClick = Date.now();
+  }
+});</code></pre>
+            </div>
+            <div class="slide">
+                <pre><code class="language-js">var button = document.querySelector('button');
+Rx.Observable.fromEvent(button, 'click')
+  .throttleTime(1000)
+  .scan(count => count + 1, 0)
+  .subscribe(count => console.log(`Clicked ${count} times`));</code></pre>
+            </div>  
+            <div class="slide">
+                <ul>
+                    <li>Observable</li>
+                    <li>Operators</li>
+                    <li>Subject</li>
+                    <li>Scheduler</li>
+                </ul>
+            </div>          
+        </section>
+        <section>
+            <div class="slide">
                 <h1>Observable</h1>
-                <p>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</p>
+                <ul>
+                    <li>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</li>
+                    <li>Un observable emite elementos al observador</li>
+                    <li></li>
+                </ul>
                 <pre><code class="language-js">var hi = 'hello';</code></pre>            
             </div>
             <div class="slide">

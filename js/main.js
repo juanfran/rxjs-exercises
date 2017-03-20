@@ -3,6 +3,7 @@ import './exercise-1';
 let sections = document.querySelectorAll('section');
 let sectionsNav = document.querySelector('.sections');
 let initialSection = localStorage.getItem('index') | 0;
+let currentSection = null;
 
 for(let [index, section] of sections.entries()) {
   let button = document.createElement('button');
@@ -25,32 +26,12 @@ for(let [index, section] of sections.entries()) {
   let next = document.createElement('button');
   next.appendChild(document.createTextNode('Next'));
 
-  next.addEventListener('click', () => {
-    let active = section.querySelector('.active');
-
-    if(!active.nextElementSibling || !active.nextElementSibling.classList.contains('slide')) {
-        slides[0].classList.add('active');
-    } else {
-        active.nextElementSibling.classList.add('active');
-    }
-
-    active.classList.remove('active');
-  });
+  next.addEventListener('click', nextSlide.bind(null, section));
 
   let prev = document.createElement('button');
   prev.appendChild(document.createTextNode('Previous'));
 
-  prev.addEventListener('click', () => {
-    let active = section.querySelector('.active');
-
-    if(!active.previousElementSibling || !active.previousElementSibling.classList.contains('slide')) {
-        slides[slides.length - 1].classList.add('active');
-    } else {
-        active.previousElementSibling.classList.add('active');
-    }
-
-    active.classList.remove('active');
-  });    
+  prev.addEventListener('click', prevSlide.bind(null, section));    
 
   nav.appendChild(prev);
   nav.appendChild(next);
@@ -59,6 +40,7 @@ for(let [index, section] of sections.entries()) {
 }
 
 function setActiveSection(sectionIndex) {
+  currentSection = sectionIndex;
   let activeSectionSlide = document.querySelector('section.active');
 
   if (activeSectionSlide) {
@@ -75,5 +57,60 @@ function setActiveSection(sectionIndex) {
   sectionsNav.querySelectorAll('button')[sectionIndex].classList.add('active');
   localStorage.setItem('index', sectionIndex);
 }
+
+function nextSlide(section) {
+  let active = section.querySelector('.active');
+
+  if(!active.nextElementSibling || !active.nextElementSibling.classList.contains('slide')) {
+    let slides = section.querySelectorAll('.slide');
+    slides[0].classList.add('active');
+  } else {
+    active.nextElementSibling.classList.add('active');
+  }
+
+  active.classList.remove('active');  
+}
+
+function prevSlide(section) {
+  let active = section.querySelector('.active');
+
+  if(!active.previousElementSibling || !active.previousElementSibling.classList.contains('slide')) {
+    let slides = section.querySelectorAll('.slide');
+    slides[slides.length - 1].classList.add('active');
+  } else {
+    active.previousElementSibling.classList.add('active');
+  }
+
+  active.classList.remove('active');  
+}
+
+document.addEventListener('keydown', (e) => {
+  let section = document.querySelector('section.active');
+  if (e.shiftKey) {
+    if (e.keyCode === 39) {
+      let nextSection = currentSection + 1;
+
+      if (nextSection >= sections.length) {
+        nextSection = 0;
+      }
+      
+      setActiveSection(nextSection);
+    } else if (e.keyCode === 37) {
+      let nextSection = currentSection - 1;
+
+      if (nextSection < 0) {
+        nextSection = sections.length - 1;
+      }
+
+      setActiveSection(nextSection);
+    }
+  } else {
+    if (e.keyCode === 39) {
+      nextSlide(section);
+    } else if (e.keyCode === 37) {
+      prevSlide(section); 
+    }
+  }
+});
 
 setActiveSection(initialSection);
