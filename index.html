@@ -3,114 +3,159 @@
         <link href="node_modules/prismjs/themes/prism-okaidia.css" rel="stylesheet" />
         <link href="main.css" rel="stylesheet" />
     </head>
-    <body>
-        <section>
-            <div class="slide">
-                <h1>RXJS</h1>
-            </div>
-            <div class="slide">
-                <pre><code class="language-js">var count = 0;
-var rate = 1000;
-var lastClick = Date.now() - rate;
-var button = document.querySelector('button');
+    <body class="theory-mode">
+        <div class="theory">
+            <section>
+                <div class="slide">
+                    <h1>RXJS</h1>
+                </div>
+                <div class="slide">
+                    <pre><code class="language-js">var count = 0;
+    var rate = 1000;
+    var lastClick = Date.now() - rate;
+    var button = document.querySelector('button');
 
-button.addEventListener('click', () => {
-  if (Date.now() - lastClick >= rate) {
-    console.log(`Clicked ${++count} times`);
-    lastClick = Date.now();
-  }
-});</code></pre>
-            </div>
-            <div class="slide">
-                <pre><code class="language-js">var button = document.querySelector('button');
-Rx.Observable.fromEvent(button, 'click')
-  .throttleTime(1000)
-  .scan(count => count + 1, 0)
-  .subscribe(count => console.log(`Clicked ${count} times`));</code></pre>
-            </div>  
-            <div class="slide">
-                <ul>
-                    <li>Observable</li>
-                    <li>Observer</li>
-                    <li>Subscription</li>
-                    <li>Operators</li>
-                    <li>Subject</li>
-                    <li>Scheduler</li>
-                </ul>
-            </div>          
-        </section>
-        <section>
-            <div class="slide">
-                <h1>Observable</h1>
-                <ul>
-                    <li>Observables vs Funciones, los observables pueden devolver múltiples values e incluso puedes devolverlos asincronamente.</li>
-                    <li>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</li>
-                </ul>
-            </div>
-            <div class="slide">
-                <pre><code class="language-js">var observable = Rx.Observable.create(function (observer) {
-  observer.next(1);
-  observer.next(2);
-  observer.next(3);
-  setTimeout(() => {
-    observer.next(4);
-    observer.complete();
-  }, 1000);
-});
+    button.addEventListener('click', () => {
+    if (Date.now() - lastClick >= rate) {
+        console.log(`Clicked ${++count} times`);
+        lastClick = Date.now();
+    }
+    });</code></pre>
+                </div>
+                <div class="slide">
+                    <pre><code class="language-js">var button = document.querySelector('button');
+    Rx.Observable.fromEvent(button, 'click')
+    .throttleTime(1000)
+    .scan(count => count + 1, 0)
+    .subscribe(count => console.log(`Clicked ${count} times`));</code></pre>
+                </div>  
+                <div class="slide">
+                    <ul>
+                        <li>Observable</li>
+                        <li>Observer</li>
+                        <li>Subscription</li>
+                        <li>Operators</li>
+                        <li>Subject</li>
+                        <li>Scheduler</li>
+                    </ul>
+                </div>          
+            </section>
+            <section>
+                <div class="slide">
+                    <h1>Observable</h1>
+                    <ul>
+                        <li>Observables vs Funciones, los observables pueden devolver múltiples values e incluso puedes devolverlos asincronamente.</li>
+                        <li>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</li>
+                    </ul>
+                </div>
+                <div class="slide">
+                    <pre><code class="language-js">var observable = Rx.Observable.create(function (observer) {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    setTimeout(() => {
+        observer.next(4);
+        observer.complete();
+    }, 1000);
+    });
 
-console.log('just before subscribe');
-observable.subscribe({
-  next: x => console.log('got value ' + x),
-  error: err => console.error('something wrong occurred: ' + err),
-  complete: () => console.log('done'),
-});
-console.log('just after subscribe');</code></pre>      
-            <pre><code class="language-bash">just before subscribe
-got value 1
-got value 2
-got value 3
-just after subscribe
-got value 4
-done</code></pre> 
-            </div>
-            <div class="slide">
-                <pre><code class="language-js">var observable = Rx.Observable.create(function subscribe(observer) {
-  // Keep track of the interval resource
-  var intervalID = setInterval(() => {
-    observer.next('hi');
-  }, 1000);
+    console.log('just before subscribe');
+    observable.subscribe({
+    next: x => console.log('got value ' + x),
+    error: err => console.error('something wrong occurred: ' + err),
+    complete: () => console.log('done'),
+    });
+    console.log('just after subscribe');</code></pre>      
+                <pre><code class="language-bash">just before subscribe
+    got value 1
+    got value 2
+    got value 3
+    just after subscribe
+    got value 4
+    done</code></pre> 
+                </div>
+                <div class="slide">
+                    <pre><code class="language-js">var observable = Rx.Observable.create(function subscribe(observer) {
+    // Keep track of the interval resource
+    var intervalID = setInterval(() => {
+        observer.next('hi');
+    }, 1000);
 
-  // Provide a way of canceling and disposing the interval resource
-  return function unsubscribe() {
-    clearInterval(intervalID);
-  };
-});
+    // Provide a way of canceling and disposing the interval resource
+    return function unsubscribe() {
+        clearInterval(intervalID);
+    };
+    });
 
-var subscription = observable.subscribe((text) => {
-    console.log(text);
-});
+    var subscription = observable.subscribe((text) => {
+        console.log(text);
+    });
 
-subscription.unsubscribe();
-</code></pre>      
-            </div>   
-            <div class="slide">
-                <h2>Ejercicio 1</h2>
-                <p>Crear un observable capaz de cancelarse.</p> 
-                <p>Tiene que imprimir un número del 1 al 5 cada segundo y luego completarse.</li>
-            </div>         
-        </section>
-        <section>
-            <div class="slide">
-                <h1>Observable222</h1>
-                <p>Los observables resulven la necesidad de tener promesas con múltiples resultados, una promesa devuelve datos una vez, los observables pueden muchas.</p>
-                <pre><code class="language-js">var hi = 'hello';</code></pre>            
-            </div>
-            <div class="slide">
-                <p>prueba</p>
-            </div>
-        </section>        
+    subscription.unsubscribe();
+    </code></pre>      
+                </div>       
+                <div class="slide">
+                    <h1>Observer</h1>
+                    <ul>
+                        <li>El observer consume los valores enviados por el observable</li>
+                        <li>Un observer es un objeto con 3 callbacks, uno por cada tipo (no son obligatorios)</li>
+                    </ul>
+                    <pre><code class="language-js">var observer = {
+    next: x => console.log('Observer got a next value: ' + x),
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+    };
 
-        <div class="sections"></div>
+    observable.subscribe(observer);
+
+    // también puedo ser un solo callback que se asignará al next
+    observable.subscribe(x => console.log('Observer got a next value: ' + x));</code></pre>
+                </div>         
+                <div class="slide">
+                    <h1>Subscription</h1>
+                    <p>Una subscripción es basicamente una forma de cancelar la subscripción al observable.</p>
+                    <pre><code class="language-js">var observable = Rx.Observable.interval(1000);
+    var subscription = observable.subscribe(x => console.log(x));
+
+    subscription.unsubscribe();</code></pre>
+                </div> 
+                <div class="slide">
+                    <p>Se pueden unir subscripciones</p>
+                    <pre><code class="language-js">var observable1 = Rx.Observable.interval(400);
+    var observable2 = Rx.Observable.interval(300);
+
+    var subscription = observable1.subscribe(x => console.log('first: ' + x));
+    var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+
+    subscription.add(childSubscription);
+
+    setTimeout(() => {
+    // Unsubscribes BOTH subscription and childSubscription
+    subscription.unsubscribe();
+    }, 1000);</code></pre>
+                </div>   
+                <div class="slide">
+                    <h2>Ejercicio 1</h2>
+                    <p>Crear un observable capaz de cancelarse.</p> 
+                    <p>Tiene que imprimir un número del 1 al 5 cada segundo y luego completarse.</li>
+                </div>
+                <div class="slide">
+                    <h2>Ejercicio 2</h2>
+                    <p>Crear 2 botones uno de subscribir y otro de cancelar.</p>
+                    <p>Al pulsarlos subscribir o cancelar subscripción.</p>
+                    <p>Tiene que imprimir la posición x del ratón cuando está subscrito.</li>
+                </div>                                                                
+            </section>        
+
+            <div class="sections"></div>
+        </div>
+        <div class="practice">
+        </div>
+
+        <div class="mode-selection">
+            <button class="theory-action">Theory</button>
+            <button class="practice-action">Practice</button>
+        </div>
         <script src="node_modules/prismjs/prism.js"></script>
         <script src="bundle.js"></script>
     </body>

@@ -21,23 +21,25 @@ for(let [index, section] of sections.entries()) {
   
   slides[0].classList.add('active');
 
-  let nav = document.createElement('nav');
-  nav.classList.add('slides-nav');
+  if (slides.length > 1) {
+    let nav = document.createElement('nav');
+    nav.classList.add('slides-nav');
 
-  let next = document.createElement('button');
-  next.appendChild(document.createTextNode('Next'));
+    let next = document.createElement('button');
+    next.appendChild(document.createTextNode('Next'));
 
-  next.addEventListener('click', nextSlide.bind(null, section));
+    next.addEventListener('click', nextSlide.bind(null, section));
 
-  let prev = document.createElement('button');
-  prev.appendChild(document.createTextNode('Previous'));
+    let prev = document.createElement('button');
+    prev.appendChild(document.createTextNode('Previous'));
 
-  prev.addEventListener('click', prevSlide.bind(null, section));    
+    prev.addEventListener('click', prevSlide.bind(null, section));    
 
-  nav.appendChild(prev);
-  nav.appendChild(next);
+    nav.appendChild(prev);
+    nav.appendChild(next);
 
-  section.appendChild(nav);
+    section.appendChild(nav);
+  }
 }
 
 function setActiveSection(sectionIndex) {
@@ -61,33 +63,42 @@ function setActiveSection(sectionIndex) {
 
 function nextSlide(section) {
   let active = section.querySelector('.active');
+  let slides = section.querySelectorAll('.slide');  
 
-  if(!active.nextElementSibling || !active.nextElementSibling.classList.contains('slide')) {
-    let slides = section.querySelectorAll('.slide');
-    slides[0].classList.add('active');
-  } else {
-    active.nextElementSibling.classList.add('active');
+  if (slides.length > 1) {
+    if(!active.nextElementSibling || !active.nextElementSibling.classList.contains('slide')) {    
+      slides[0].classList.add('active');
+    } else {
+      active.nextElementSibling.classList.add('active');
+    }
+
+    active.classList.remove('active');  
   }
-
-  active.classList.remove('active');  
 }
 
 function prevSlide(section) {
   let active = section.querySelector('.active');
+  let slides = section.querySelectorAll('.slide');  
 
-  if(!active.previousElementSibling || !active.previousElementSibling.classList.contains('slide')) {
-    let slides = section.querySelectorAll('.slide');
-    slides[slides.length - 1].classList.add('active');
-  } else {
-    active.previousElementSibling.classList.add('active');
+  if (slides.length > 1) {
+    if(!active.previousElementSibling || !active.previousElementSibling.classList.contains('slide')) {
+      slides[slides.length - 1].classList.add('active');
+    } else {
+      active.previousElementSibling.classList.add('active');
+    }
+
+    active.classList.remove('active');  
   }
-
-  active.classList.remove('active');  
 }
 
 document.addEventListener('keydown', (e) => {
   let section = document.querySelector('section.active');
-  if (e.shiftKey) {
+
+  if (e.altKey && e.keyCode >= 48 && e.keyCode <= 57) {
+    let key = parseInt(e.key, 10);
+
+    setActiveSection(key - 1);
+  } else if (e.shiftKey) {
     if (e.keyCode === 39) {
       let nextSection = currentSection + 1;
 
