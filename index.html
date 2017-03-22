@@ -22,7 +22,6 @@
                         <li>Subscription</li>
                         <li>Subject</li>
                         <li>Operators</li>
-                        <li>Scheduler</li>
                     </ul>
                 </div>          
             </section>
@@ -148,9 +147,75 @@
             </section> 
             <section>
                 <div class="slide">
-                    <h1>Important Operators</h1>
-                    
+                    <h1>Operators++</h1>
                 </div>
+                <div class="slide">
+                    <ul>
+                        <li>timer emite despues de x milisegundos</li>
+                        <li>mapTo emite el argumento dado cada vez que el observable emite</li>
+                        <li>concatena múltiples observables en 1, se suscribe al primero y luego al segundo</li>
+                    </ul>
+                    <pre data-src="snippets/17.js"></pre>
+                </div>    
+                <div class="slide">
+                    <h2>forkJoin</h2>
+                    <ul>
+                        <li>Se suscribe a ambos a la vez</li>
+                        <li>No emite hasta que han terminado todos</li>
+                    </ul>
+                    <pre data-src="snippets/18.js"></pre>
+                </div>            
+                <div class="slide">
+                    <ul>
+                        <li>map ejecuta la función por cada valor emitido y replaza el resultado por lo devuelto por el map</li>
+                        <li>pairwise empareja resultados devuelve un array donde el primer valor es el anterior y el segundo es el nuevo</li>
+                    </ul>
+                    <pre data-src="snippets/19.js"></pre>
+                </div>   
+                <div class="slide">
+                    <h2>combineLatest</h2>
+                    <p>Emite cuando algunos de los observables ha emitido algo, también devuelve el último valor del otro observable</p>
+                    <pre data-src="snippets/20.js"></pre>
+                </div>    
+                <div class="slide">
+                    <ul>
+                        <li>scan, emite cada vez que la fuente emite y "acumula" el valor actual con el anterior</li>
+                        <li>takeWhile emite siempe que se cumple la condición</li>
+                    </ul>
+                    <pre data-src="snippets/21.js"></pre>
+                </div>                                                                       
+                <div class="slide">
+                    <h2>mergeAll</h2>
+                    <ul>
+                        <li>Se suscribe a todos los observables emitidos por la fuente</li>
+                    </ul>
+                    <pre data-src="snippets/22.js"></pre>
+                </div>  
+                <div class="slide">
+                    <h2>switch</h2>
+                    <ul>
+                        <li>Cambiar el antiguo observable por el nuevo</li>
+                    </ul>
+                    <pre data-src="snippets/23.js"></pre>
+                </div>   
+                <div class="slide">
+                    <h2>switchMap</h2>
+                    <ul>
+                        <li>Cambiar el antiguo observable por el nuevo</li>
+                    </ul>
+                    <pre data-src="snippets/22.js"></pre>
+                </div>   
+                <section>
+                    <div class="slide">
+                        <h1>Ejercicio 6</h1>
+                        <ul>
+                            <li>Crear un input</li>
+                            <li>Al escribir si la frase empieza con "buscar"</li>
+                            <li></li>
+                        </ul>
+                    </div>
+                        
+            </section>                                                                                                                        
             </section>                 
 
             <div class="sections"></div>
