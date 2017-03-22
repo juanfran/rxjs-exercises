@@ -20,8 +20,8 @@
                         <li>Observable</li>
                         <li>Observer</li>
                         <li>Subscription</li>
-                        <li>Operators</li>
                         <li>Subject</li>
+                        <li>Operators</li>
                         <li>Scheduler</li>
                     </ul>
                 </div>          
@@ -77,9 +77,83 @@
                 </div>                                                                              
             </section>        
 
+            <section>
+                <div class="slide">
+                    <h1>Subject</h1>
+                    <p>Un subject es como un observable puede enviar a muchos Observers.</p>    
+                </div>
+                <div class="slide">
+                    <pre data-src="snippets/8.js"></pre>            
+                </div>
+                <div class="slide">
+                    <pre data-src="snippets/9.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>Multicasted Observables</h2>
+                    <pre data-src="snippets/10.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>BehaviorSubject</h2>
+                    <p>Al suscribirse devuelve el último valor.</p>
+                    <pre data-src="snippets/11.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>ReplaySubject</h2>
+                    <p>Devuelve todos los valores anteriores a los nuevos subscriptores.</p>
+                    <pre data-src="snippets/12.js"></pre>
+                </div>                
+                <div class="slide">
+                    <h2>AsyncSubject</h2>
+                    <p>Solo devuelve el último valor cuando la ejecución se ha completado</p>
+                    <pre data-src="snippets/13.js"></pre>
+                </div>                
+                <div class="slide">
+                    <h2>Ejercicio 4</h2>
+                    <ul>
+                        <li>Crear 3 botones (A, B, C)</li>
+                        <li>Crear un 4 botón con el texto "empezar normal"</li>
+                        <li>Crear un 4 botón con el texto "empezar async"</li>
+                        <li>Crear un 4 botón con el texto "recuperar última ejecución"</li>
+                        <li>Crear un observable que imprima un números del 1 a al 5 cada segundo y luego termine</li>
+                        <li>El usuario pulsa 1 o varios de los botones iniciales y luego pulsa empezar</li>
+                        <li>Entonces cada botón tendrá un observador que imprimira los resultados del observable con la letra delante (A, B, C)</li>
+                        <li>El console.log se comportará diferente según el botón que hayas pulsado</li>
+                    </ul>
+                </div>                  
+            </section>         
+            <section>
+                <div class="slide">
+                    <h1>Operators</h1>
+                    <p>Un operador es una función que crea un nuevo Observable basado en el observable actual.</p>
+                </div>
+                <div class="slide">
+                    <pre data-src="snippets/14.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>Instance operator</h2>
+                    <pre data-src="snippets/15.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>Static operatos</h2>
+                    <p>Cogen un argumento "no observable" y lo transforman en un observable</p>
+                    <pre data-src="snippets/16.js"></pre>
+                </div>
+                <div class="slide">
+                    <h2>Ejercicio 5</h2>
+                    <ul>
+                        <li>Crear un instance operator que imprima sólo los números mayores de 10</li>
+                        <li>var observable = Rx.Observable.from([10, 2, 33, 4]).filterByTen();</li>
+                    </ul>
+                </div>                     
+            </section> 
+            <section>
+                <div class="slide">
+                    <h1>Important Operators</h1>
+                    
+                </div>
+            </section>                 
+
             <div class="sections"></div>
-        </div>
-        <div class="practice">
         </div>
 
         <div class="mode-selection">
