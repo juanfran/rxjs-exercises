@@ -12,3 +12,10 @@ result.subscribe(x => console.log(x));
 // 2
 // 3
 // 4
+
+let ajax = Rx.Observable.ajax('https://jsonplaceholder.typicode.com/posts');
+
+Rx.Observable.fromEvent(document, 'click')
+  .debounceTime(400)  
+  .switchMap(value => ajax.retry(3))
+  .subscribe(x => console.log(x))

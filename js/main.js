@@ -5,6 +5,7 @@ import './exercise-4';
 import './exercise-5';
 import './exercise-6';
 import './exercise-7';
+import './exercise-8';
 
 /* DON'T TOUCH */
 let sections = document.querySelectorAll('section');
