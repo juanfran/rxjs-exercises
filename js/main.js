@@ -2,6 +2,9 @@ import './exercise-1';
 import './exercise-2';
 import './exercise-3';
 import './exercise-4';
+import './exercise-5';
+import './exercise-6';
+import './exercise-7';
 
 /* DON'T TOUCH */
 let sections = document.querySelectorAll('section');

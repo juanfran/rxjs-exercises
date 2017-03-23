@@ -192,6 +192,13 @@
                     <pre data-src="snippets/22.js"></pre>
                 </div>  
                 <div class="slide">
+                    <h2>mergeMap (antiguo flatMap)</h2>
+                    <ul>
+                        <li>Mapea cada valor a un observable y luego le hace un mergeAll</li>
+                    </ul>
+                    <pre data-src="snippets/25.js"></pre>
+                </div>                      
+                <div class="slide">
                     <h2>switch</h2>
                     <ul>
                         <li>Cambiar el antiguo observable por el nuevo</li>
@@ -201,21 +208,20 @@
                 <div class="slide">
                     <h2>switchMap</h2>
                     <ul>
-                        <li>Cambiar el antiguo observable por el nuevo</li>
+                        <li>Mapea cada valor a un observable y luego hace switch</li>
                     </ul>
-                    <pre data-src="snippets/22.js"></pre>
-                </div>   
+                    <pre data-src="snippets/24.js"></pre>
+                </div>                
                 <section>
                     <div class="slide">
                         <h1>Ejercicio 6</h1>
                         <ul>
                             <li>Crear un input</li>
-                            <li>Al escribir si la frase empieza con "buscar"</li>
-                            <li></li>
+                            <li>Al escribir si la frase empieza con "buscar" lanzar un console.log con la cadena</li>
+                            <li>Tiene que tener un debounce de 500ms</li>
                         </ul>
-                    </div>
-                        
-            </section>                                                                                                                        
+                    </div>         
+                </section>                                                                                                                        
             </section>                 
 
             <div class="sections"></div>
