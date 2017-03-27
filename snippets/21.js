@@ -28,3 +28,9 @@ Rx.Observable.of(
     next: x => console.log(x),
     complete: (x) => console.log('completado!')
 });
+
+/*
+18
+39
+completado!
+*/
