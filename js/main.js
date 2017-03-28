@@ -15,6 +15,7 @@ let sections = document.querySelectorAll('section');
 if (sections.length) {
   let sectionsNav = document.querySelector('.sections');
   let initialSection = localStorage.getItem('index') | 0;
+  let initialSlide = localStorage.getItem('slideIndex') | 0;
   let currentSection = null;
 
   for(let [index, section] of sections.entries()) {
@@ -53,7 +54,14 @@ if (sections.length) {
     }
   }
 
-  function setActiveSection(sectionIndex) {
+  function getSlideNumber() {
+    let activeSection = document.querySelector('section.active');
+    let slides = Array.from(activeSection.querySelectorAll('.slide'));
+    
+    return slides.findIndex((elm) => elm.classList.contains('active'));
+  }
+
+  function setActiveSection(sectionIndex, slideIndex = 0) {
     currentSection = sectionIndex;
     let activeSectionSlide = document.querySelector('section.active');
 
@@ -70,6 +78,11 @@ if (sections.length) {
     sections[sectionIndex].classList.add('active'); 
     sectionsNav.querySelectorAll('button')[sectionIndex].classList.add('active');
     localStorage.setItem('index', sectionIndex);
+
+    sections[sectionIndex].querySelector('.slide.active').classList.remove('active');
+    let slides = sections[sectionIndex].querySelectorAll('.slide');  
+    slides[slideIndex].classList.add('active');
+    localStorage.setItem('slideIndex', slideIndex);
   }
 
   function nextSlide(section) {
@@ -84,6 +97,9 @@ if (sections.length) {
       }
 
       active.classList.remove('active');  
+      
+      let slideNumber = getSlideNumber();
+      localStorage.setItem('slideIndex', slideNumber);
     }
   }
 
@@ -99,6 +115,9 @@ if (sections.length) {
       }
 
       active.classList.remove('active');  
+
+      let slideNumber = getSlideNumber();
+      localStorage.setItem('slideIndex', slideNumber);
     }
   }
 
@@ -136,5 +155,5 @@ if (sections.length) {
     }
   });
 
-  setActiveSection(initialSection);
+  setActiveSection(initialSection, initialSlide);
 }
